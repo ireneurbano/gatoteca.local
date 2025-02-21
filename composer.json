@@ -1,0 +1,19 @@
+{
+    "name": "irene/gatoteca.local",
+    "autoload": {
+        "psr-4": {
+            "Irene\\GatotecaLocal\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Irene",
+            "email": "ireneurbanoluque@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^3.8",
+        "firebase/php-jwt": "^6.11",
+        "twig/twig": "^3.0"
+    }
+}
