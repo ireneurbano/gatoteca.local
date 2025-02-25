@@ -5,10 +5,10 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Conexión a la base de datos
-$servername = "localhost"; // Cambiar si tu servidor de base de datos está en otro lugar
-$username = "root"; // Tu usuario de base de datos
-$password = "usuario"; // Tu contraseña de base de datos
-$dbname = "gatoteca"; // Nombre de la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "usuario";
+$dbname = "gatoteca";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -21,7 +21,6 @@ if ($conn->connect_error) {
 // Consultar todas las razas de gatos
 $sql = "SELECT nombre_raza, descripcion, imagen_url FROM Razas";
 $result = $conn->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +38,6 @@ $result = $conn->query($sql);
     <div class="container mt-5">
         <div class="card">
             <div class="card-header bg-light">
-                <!-- Verificar si el nombre de usuario está disponible en la sesión -->
                 <h5 class="mb-0">Bienvenido, <?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Invitado'; ?>!</h5>
             </div>
             <div class="card-body">
@@ -57,9 +55,16 @@ $result = $conn->query($sql);
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr>
-                                <td><img src="<?php echo $row['imagen_url']; ?>" alt="Imagen de la raza" width="100" height="100" style="object-fit: contain; width: 100px; height: 100px;"></td>
-                                <td><?php echo $row['nombre_raza']; ?></td>
-                                    <td><?php echo $row['descripcion']; ?></td>
+                                    <td>
+                                        <img src="<?php echo $row['imagen_url']; ?>" alt="Imagen de la raza" width="100" height="100" style="object-fit: contain;">
+                                    </td>
+                                    <td>
+                                        <!-- Enlace limpio solo con el nombre de la raza -->
+                                        <a href="/<?php echo urlencode($row['nombre_raza']); ?>" class="text-decoration-none">
+                                            <?php echo htmlspecialchars($row['nombre_raza']); ?>
+                                        </a>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($row['descripcion']); ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>

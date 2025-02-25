@@ -1,91 +1,124 @@
-import requests
-from bs4 import BeautifulSoup
-import mysql.connector
+import time
+import pymysql
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-# Conexión a la base de datos
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="usuario",
-    database="gatoteca"
-)
+# Función para conectar con la base de datos MySQL usando pymysql
+def conectar_db():
+    db_config = {
+        'host': 'localhost',
+        'user': 'root',
+        'password': 'usuario',
+        'database': 'gatoteca',
+    }
+    print("Conectando a la base de datos...")
+    return pymysql.connect(**db_config)
 
-cursor = db.cursor()
+# Función para configurar el driver de Selenium
+def configurar_driver():
+    print("Configurando el driver de Selenium...")
+    servicio = Service('/usr/bin/chromedriver')  # Ruta correcta a chromedriver
+    opciones = Options()
+    return webdriver.Chrome(service=servicio, options=opciones)
 
-# URL de la página principal que quieres hacer scraping
-url = "https://www.expertoanimal.com/razas-de-gatos.html"
+# Función para verificar si un origen ya existe en la base de datos
+def origen_existe(cursor, origen):
+    query = "SELECT COUNT(*) FROM Origen WHERE origen = %s"
+    cursor.execute(query, (origen,))
+    return cursor.fetchone()[0] > 0
 
-# Realiza la solicitud HTTP a la página principal
-response = requests.get(url)
+# Función para obtener los datos de las razas
+def obtener_datos():
+    # Configura el driver
+    driver = configurar_driver()
 
-# Comprobar que la página fue descargada correctamente
-if response.status_code != 200:
-    print(f"Error al descargar la página. Status code: {response.status_code}")
-    exit()
+    # URL del sitio web con las razas
+    url = 'https://www.expertoanimal.com/razas-de-gatos.html'
+    print(f"Accediendo a la URL: {url}")
+    driver.get(url)
 
-print("Página principal descargada correctamente")
+    # Espera para que la página cargue
+    print("Esperando a que la página cargue...")
+    WebDriverWait(driver, 15).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, 'div.resultado a'))
+    )
 
-soup = BeautifulSoup(response.content, "html.parser")
+    # Encuentra todos los enlaces a las razas
+    print("Buscando enlaces a las razas...")
+    razas = driver.find_elements(By.CSS_SELECTOR, 'div.resultado a')
 
-# Encuentra todos los enlaces a razas de gatos
-razas = soup.find_all("div", class_="resultado link")
+    # Conectar a la base de datos
+    conexion = conectar_db()
+    cursor = conexion.cursor()
 
-# Verificar si encontramos razas
-if not razas:
-    print("No se encontraron razas en la página")
-else:
-    print(f"Se encontraron {len(razas)} razas en la página")
+    # Itera sobre los resultados y guarda los datos en la base de datos
+    for raza in razas:
+        try:
+            # Abre cada enlace de raza en una nueva pestaña y cambia de pestaña
+            link = raza.get_attribute('href')
+            driver.execute_script("window.open(arguments[0]);", link)
+            driver.switch_to.window(driver.window_handles[1])
 
-# Itera sobre cada raza y entra a la página de la raza
-for raza in razas:
-    # Encuentra el enlace a la página de la raza
-    enlace = raza.find("a", class_="titulo titulo--resultado")
-    if enlace:
-        url_raza = enlace["href"]
-        print(f"Entrando a la página de la raza: {url_raza}")
-        
-        # Realiza la solicitud HTTP a la página de la raza
-        response_raza = requests.get(url_raza)
-        
-        if response_raza.status_code != 200:
-            print(f"Error al descargar la página de la raza. Status code: {response_raza.status_code}")
-            continue
-        
-        # Analiza la página de la raza
-        soup_raza = BeautifulSoup(response_raza.content, "html.parser")
-        
-        # Extrae la sección de origen
-        origen_section = soup_raza.find("div", class_="elemento el--generic")
-        
-        if origen_section:
-            origen_title = origen_section.find("div", class_="titulo titulo--infografia").text.strip()
-            origen_list = origen_section.find("div", class_="prop-ig")
-            
-            if origen_list:
-                paises = [li.text.strip() for li in origen_list.find_all("li")]
-                if paises:
-                    print(f"Orígenes encontrados para {url_raza}: {', '.join(paises)}")
-                    for pais in paises:
-                        # Verifica si el origen ya existe en la base de datos
-                        cursor.execute("SELECT * FROM Origen WHERE origen = %s", (pais,))
-                        if cursor.fetchone() is None:
-                            # Inserta el nuevo origen si no existe
-                            query = """
-                            INSERT INTO Origen (titulo, origen)
-                            VALUES (%s, %s)
-                            """
-                            cursor.execute(query, (origen_title, pais))
-                            print(f"Origen insertado: {pais}")
-                        else:
-                            print(f"El origen {pais} ya existe en la base de datos")
-                else:
-                    print(f"No se encontraron países en la lista de orígenes para {url_raza}")
-            else:
-                print(f"No se encontró la lista de países de origen para {url_raza}")
-        else:
-            print(f"No se encontró la sección de 'Origen' en la página de la raza: {url_raza}")
+            WebDriverWait(driver, 15).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'h1'))
+            )
 
-# Confirma los cambios y cierra la conexión
-db.commit()
-cursor.close()
-db.close()
+            print(f"Procesando nueva raza...")
+
+            # Buscar el div correcto de "Origen"
+            try:
+                divs_genericos = driver.find_elements(By.CSS_SELECTOR, 'div.elemento.el--generic')
+                origenes = set()  # Usamos un set para eliminar duplicados
+
+                for div in divs_genericos:
+                    try:
+                        titulo = div.find_element(By.CSS_SELECTOR, 'div.titulo.titulo--infografia').text.strip()
+                        if "Origen" in titulo:
+                            origen_elemento = div.find_element(By.CSS_SELECTOR, 'ul')
+                            for li in origen_elemento.find_elements(By.TAG_NAME, 'li'):
+                                origen_limpio = li.text.strip()
+                                if origen_limpio:  # Evitar valores vacíos
+                                    origenes.add(origen_limpio)
+                    except Exception as e:
+                        print(f"Error procesando un div de origen: {e}")
+
+                if not origenes:
+                    origenes.add("Origen no disponible")
+
+                print(f"Orígenes encontrados: {origenes}")
+
+                # Guardar cada origen en una fila diferente, evitando duplicados en la BD
+                for origen in origenes:
+                    if not origen_existe(cursor, origen):  # Verificar si ya existe
+                        query = "INSERT INTO Origen (titulo, origen) VALUES (%s, %s)"
+                        cursor.execute(query, ("Origen", origen))
+                        conexion.commit()
+                        print(f'Origen "{origen}" guardado correctamente.')
+                    else:
+                        print(f'Origen "{origen}" ya existe en la base de datos, omitiendo.')
+
+            except Exception as e:
+                print(f"Error al obtener el origen: {e}")
+
+            # Cierra la pestaña actual y regresa a la pestaña principal
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
+        except Exception as e:
+            print(f'Error al procesar la raza: {e}')
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
+
+    # Cierra la conexión y el driver
+    print("Cerrando la conexión a la base de datos...")
+    cursor.close()
+    conexion.close()
+    driver.quit()
+
+# Llamada a la función para obtener los datos
+print("Iniciando la obtención de datos...")
+obtener_datos()
+print("Proceso completado.")
