@@ -1,0 +1,65 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+
+msgid "Welcome,"
+msgstr "Bienvenido/a,"
+
+msgid "Guest"
+msgstr "Invitado"
+
+msgid "Cat Breeds"
+msgstr "Razas de gatos"
+
+msgid "Image"
+msgstr "Imagen"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "No cat breeds registered."
+msgstr "No hay razas registradas."
+
+msgid "Login"
+msgstr "Iniciar sessión"
+
+msgid "Sign In"
+msgstr "Registrarse"
+
+msgid "Cats"
+msgstr "Gatos"
+
+msgid "Contact"
+msgstr "Contacto"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Log Out"
+msgstr "Cerrar sessión"
+
+msgid "Administration panel"
+msgstr "Panel de administración"
+
+msgid "Breeds list"
+msgstr "Lista de razas"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Add new breed"
+msgstr "Añadir nueva raza"

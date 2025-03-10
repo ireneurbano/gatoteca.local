@@ -4,6 +4,33 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Detecta el idioma del usuario basado en el encabezado HTTP_ACCEPT_LANGUAGE
+function detectUserLocale() {
+    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2); // Detecta el idioma principal
+
+    // Idiomas soportados por la aplicación
+    $supportedLanguages = ['es', 'en']; 
+
+    // Verifica si el idioma detectado es compatible con los soportados
+    if (in_array($lang, $supportedLanguages)) {
+        return $lang;
+    } else {
+        return 'en'; // Idioma predeterminado
+    }
+}
+
+// Establece el locale a utilizar según la detección
+$locale = isset($_SESSION['locale']) ? $_SESSION['locale'] : detectUserLocale();  // Si no está en sesión, detecta el idioma
+
+// Establecer el idioma y la localización (usando locale)
+putenv("LC_ALL=$locale");  // Asegura que el locale esté configurado para el idioma
+setlocale(LC_ALL, $locale . ".UTF-8");  // Configura el locale para el idioma detectado
+
+// Define la ruta donde están los archivos de traducción
+bindtextdomain("messages", "/var/www/gatoteca.local/locale");  // El directorio de los archivos .mo
+textdomain("messages");  // Establece el dominio para las traducciones
+
+
 // Conexión a la base de datos
 $servername = "localhost";
 $username = "root";
@@ -24,11 +51,11 @@ $result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?php echo substr($locale, 0, 2); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cat List</title>
+    <title><?php echo _("Cat List"); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -38,29 +65,29 @@ $result = $conn->query($sql);
     <div class="container mt-5">
         <div class="card">
             <div class="card-header bg-light">
-                <h5 class="mb-0">Bienvenido, <?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Invitado'; ?>!</h5>
+                <h5 class="mb-0"><?php echo _("Welcome,") . " " . (isset($_SESSION['user_name']) ? $_SESSION['user_name'] : _("Guest")); ?>!</h5>
             </div>
             <div class="card-body">
-                <h4 class="mb-4">Razas de gatos</h4>
+                <h4 class="mb-4"><?php echo _("Cat Breeds"); ?></h4>
 
                 <?php if ($result->num_rows > 0): ?>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Imagen</th>
-                                <th>Nombre de la Raza</th>
-                                <th>Descripción</th>
+                                <th><?php echo _("Image"); ?></th>
+                                <th><?php echo _("Name"); ?></th>
+                                <th><?php echo _("Description"); ?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr>
                                     <td>
-                                        <img src="<?php echo $row['imagen_url']; ?>" alt="Imagen de la raza" width="100" height="100" style="object-fit: contain;">
+                                        <img src="<?php echo $row['imagen_url']; ?>" alt="<?php echo _("Image of the breed"); ?>" width="100" height="100" style="object-fit: contain;">
                                     </td>
                                     <td>
                                         <!-- Enlace limpio solo con el nombre de la raza -->
-                                        <a href="/<?php echo urlencode($row['nombre_raza']); ?>" class="text-decoration-none">
+                                        <a href="/raza/<?php echo urlencode($row['nombre_raza']); ?>" class="text-decoration-none">
                                             <?php echo htmlspecialchars($row['nombre_raza']); ?>
                                         </a>
                                     </td>
@@ -70,7 +97,7 @@ $result = $conn->query($sql);
                         </tbody>
                     </table>
                 <?php else: ?>
-                    <p>No hay razas de gatos registradas.</p>
+                    <p><?php echo _("No cat breeds registered."); ?></p>
                 <?php endif; ?>
 
             </div>

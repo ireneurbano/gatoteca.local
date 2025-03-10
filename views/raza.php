@@ -26,7 +26,7 @@ $request = str_replace('+', ' ', $request);
 $request = urldecode($request);
 
 // Asegúrate de obtener solo el nombre de la raza de la URL
-$raza = substr($request, 1); // Eliminar el primer carácter '/' de la URL
+$raza = preg_replace('#^/raza/#', '', $request); // Eliminar el prefijo '/raza/'
 
 // Verificar si se ha recibido el nombre de la raza
 if (!empty($raza)) {

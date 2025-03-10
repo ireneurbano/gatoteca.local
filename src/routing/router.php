@@ -41,19 +41,40 @@ switch (true) {
     case ($request === '/logout'):
         require $viewDir . '/logout.php'; // Página de logout
         break;
+    
+    case ($request === '/admin'):
+        require $viewDir . '/admin.php'; // Página de administración
+        break;
 
-    // Caso para las razas de gatos (sin prefijo '/raza/')
-    case preg_match('#^/([a-zA-Z0-9_ -áéíóúÁÉÍÓÚ]+)$#', $request, $matches) === 1:
-        // Aquí obtenemos el nombre de la raza desde la URL
-        $raza = $matches[1];  // Nombre de la raza, puede contener espacios y acentos
+    case ($request === '/agregar_raza'):
+        require $viewDir . '/agregar_raza.php'; // Página de agregar raza
+        break;
 
-        // Ahora cargamos la vista para esa raza específica
+    case ($request === '/cambiar_idioma'):
+        require $viewDir . '/cambiar_idioma.php'; // Página de agregar raza
+        break;
+
+    case preg_match('#^/editar_raza\.php\?id=(\d+)$#', $request, $matches) === 1:
+        // Capturamos el ID de la raza
+        $id = $matches[1];
+        require $viewDir . '/editar_raza.php';
+        break;
+
+    case preg_match('#^/eliminar_raza\.php\?id=(\d+)$#', $request, $matches) === 1:
+        // Capturamos el ID de la raza
+        $id = $matches[1];
+        require $viewDir . '/eliminar_raza.php';
+        break;
+
+    // Caso para las razas de gatos
+    case preg_match('#^/raza/([a-zA-Z0-9_ -áéíóúÁÉÍÓÚ]+)$#', $request, $matches) === 1:
+        $raza = $matches[1];
         require $viewDir . '/raza.php';
         break;
 
-    // Si la ruta no existe, se redirige a 404
     default:
         http_response_code(404);
         require $viewDir . '/404.php'; // Página 404
 }
+
 ?>
