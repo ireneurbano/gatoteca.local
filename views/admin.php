@@ -1,9 +1,35 @@
 <?php
-include 'config.php';
+// Iniciar sesión solo si no está iniciada
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Obtener todas las razas de la base de datos
-$stmt = $pdo->query("SELECT * FROM Razas");
-$razas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "usuario";
+$dbname = "gatoteca";
+
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Comprobar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Consultar todas las razas de gatos
+$sql = "SELECT id, nombre_raza, descripcion, imagen_url FROM Razas";
+$result = $conn->query($sql);
+
+// Crear un array para almacenar las razas
+$razas = [];
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $razas[] = $row; // Agregar cada fila al array
+    }
+}
 ?>
 
 <!DOCTYPE html>

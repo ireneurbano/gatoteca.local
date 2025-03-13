@@ -45,7 +45,7 @@ textdomain("messages");  // Establece el dominio para las traducciones
                 <a class="nav-link" href="/"><?php echo _("Cats"); ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/contactos"><?php echo _("Contact"); ?></a>
+                <a class="nav-link" href="/estadisticas"><?php echo _("Statistics"); ?></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin"><?php echo _("Admin"); ?></a>

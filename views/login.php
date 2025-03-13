@@ -68,23 +68,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Incluir la cabecera -->
+    <?php include('../includes/header.php'); ?>
     <div class="container">
-        <h1 class="my-5 text-center">Iniciar Sesión</h1>
+        <h1 class="my-5 text-center"><?php echo _("Login") ?></h1>
         
         <form action="login" method="POST">
             <div class="form-group">
-                <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                <input type="email" name="email" class="form-control" placeholder=<?php echo _("Mail") ?> required>
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+                <input type="password" name="password" class="form-control" placeholder=<?php echo _("Password") ?> required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block mt-3">Ingresar</button>
+            <button type="submit" class="btn btn-primary btn-block mt-3"><?php echo _("Login") ?></button>
         </form>
 
         <?php if (isset($error)) { echo "<p class='text-danger mt-3'>$error</p>"; } ?>
 
         <div class="mt-3 text-center">
-            <a href="register">¿No tienes cuenta? Regístrate aquí</a>
+            <a href="register"><?php echo _("No have account? Sign In here") ?></a>
         </div>
     </div>
 

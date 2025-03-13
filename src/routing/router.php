@@ -34,8 +34,8 @@ switch (true) {
         require $viewDir . '/register.php'; // Página de registro
         break;
 
-    case ($request === '/contact'):
-        require $viewDir . '/contact.php'; // Página de contacto
+    case ($request === '/estadisticas'):
+        require $viewDir . '/estadisticas.php'; // Página de estadísticas
         break;
 
     case ($request === '/logout'):

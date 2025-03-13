@@ -31,17 +31,32 @@ msgstr "Iniciar sessión"
 msgid "Sign In"
 msgstr "Registrarse"
 
+msgid "Mail"
+msgstr "Correo electronico"
+
+msgid "Password"
+msgstr "Contraseña"
+
 msgid "Cats"
 msgstr "Gatos"
 
-msgid "Contact"
-msgstr "Contacto"
+msgid "Statistics"
+msgstr "Estadisticas"
+
+msgid "This page show statistics from gatoteca."
+msgstr "Esta pàgina muestra las estadisticas de la gatoteca."
 
 msgid "Admin"
 msgstr "Admin"
 
 msgid "Log Out"
 msgstr "Cerrar sessión"
+
+msgid "No have account? Sign In here"
+msgstr "¿No tienes cuenta? Registrate aquí"
+
+msgid "Have account? Login here"
+msgstr "¿Ya tienes cuenta? Inicia sessión aqui"
 
 msgid "Administration panel"
 msgstr "Panel de administración"
@@ -63,3 +78,11 @@ msgstr "Eliminar"
 
 msgid "Add new breed"
 msgstr "Añadir nueva raza"
+
+msgid "Races by physical characteristics"
+msgstr "Razas por características físicas"
+
+msgid "Races by origin"
+msgstr "Razas por origen"
+
+

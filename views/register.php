@@ -67,38 +67,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-
-  <!-- Agregar Bootstrap desde un CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <!-- Agregar Bootstrap desde un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <body>
+    <!-- Incluir la cabecera -->
+    <?php include('../includes/header.php'); ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h1 class="text-center mb-4">Registro de Usuario</h1>
+                <h1 class="text-center mb-4"><?php echo _("Sign In") ?></h1>
                 <form action="register" method="POST">
                     <div class="mb-3">
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombre completo" required>
+                        <input type="text" name="nombre" class="form-control" placeholder=<?php echo _("Name") ?> required>
                     </div>
                     <div class="mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Correo electrónico" required>
+                        <input type="email" name="email" class="form-control" placeholder=<?php echo _("Mail") ?> required>
                     </div>
                     <div class="mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+                        <input type="password" name="password" class="form-control" placeholder=<?php echo _("Password") ?> required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                    <button type="submit" class="btn btn-primary btn-block"><?php echo _("Register") ?></button>
                 </form>
 
                 <?php if (isset($error)) { echo "<p class='text-danger mt-3'>$error</p>"; } ?>
 
                 <div class="mt-3 text-center">
-                    <a href="/login">¿Ya tienes cuenta? Inicia sesión</a>
+                    <a href="/login"><?php echo _("Have account? Login here") ?></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Vinculamos Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-UgD3F9yn9nmhRgS8YhE4tGg7Uy4JfzYr18tOSRntqjAiBh64s1YPYXqYGRzCFA8Q" crossorigin="anonymous"></script>
+     <!-- Agregar Bootstrap JS desde un CDN -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
