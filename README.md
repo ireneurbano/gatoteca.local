@@ -4,4 +4,4 @@ En esta pàgina web podremos ver información sobre diferentes gatos, podremos v
 
 Arriba del todo tenemos una cabecera, tendrás un acceso directo a la página principal, y a las estadísticas, estas
 se muestran de todos los gatos en forma de grafico. A parte, si eres un administrador y no te has registrado 
-anteriormente o no has iniciado sessión lo podrás hacer. En esta cabecera también tienes la opción de poder cambiar de idiomas, tanto a inglés como a español. También vas a poder cerrar la sessión en caso de que ya hayas terminado de hacer lo que querías y si alguien mas utiliza tu ordenador que no puedan hacer nada.
+anteriormente o no has iniciado sessión lo podrás hacer, auqnue para asegurarnos de que eres un administrador de verdad tendrás que introducir el codigo: "GATOS123". En esta cabecera también tienes la opción de poder cambiar de idiomas, tanto a inglés como a español. También vas a poder cerrar la sessión en caso de que ya hayas terminado de hacer lo que querías y si alguien mas utiliza tu ordenador que no puedan hacer nada.
