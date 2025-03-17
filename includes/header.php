@@ -34,7 +34,7 @@ textdomain("messages");  // Establece el dominio para las traducciones
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/home">Gatoteca</a>
+    <a class="navbar-brand" href="/">Gatoteca</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -59,6 +59,12 @@ textdomain("messages");  // Establece el dominio para las traducciones
                 </ul>
             </li>
         <?php else: ?>
+          <li class="nav-item">
+                <a class="nav-link" href="/"><?php echo _("Cats"); ?></a>
+            </li>
+          <li class="nav-item">
+                <a class="nav-link" href="/estadisticas"><?php echo _("Statistics"); ?></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/login"><?php echo _("Login"); ?></a>
             </li>

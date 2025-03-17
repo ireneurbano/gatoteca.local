@@ -9,13 +9,13 @@ function detectUserLocale() {
     $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2); // Detecta el idioma principal
 
     // Idiomas soportados por la aplicación
-    $supportedLanguages = ['en', 'es']; 
+    $supportedLanguages = ['es', 'en']; 
 
     // Verifica si el idioma detectado es compatible con los soportados
     if (in_array($lang, $supportedLanguages)) {
         return $lang;
     } else {
-        return 'en'; // Idioma predeterminado
+        return 'es'; // Idioma predeterminado
     }
 }
 

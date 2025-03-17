@@ -5,106 +5,106 @@ msgstr ""
 "Language: es_ES\n"
 
 msgid "Welcome,"
-msgstr "Bienvenido/a,"
+msgstr "Welcome,"
 
 msgid "Guest"
-msgstr "Invitado"
+msgstr "Guest"
 
 msgid "Cat Breeds"
-msgstr "Razas de gatos"
+msgstr "Cat Breeds"
 
 msgid "Image"
-msgstr "Imagen"
+msgstr "Image"
 
 msgid "Name"
-msgstr "Nombre"
+msgstr "Name"
 
 msgid "Description"
-msgstr "Descripción"
+msgstr "Description"
 
 msgid "No cat breeds registered."
-msgstr "No hay razas registradas."
+msgstr "No cat breeds registered."
 
 msgid "Login"
-msgstr "Iniciar sessión"
+msgstr "Login"
 
 msgid "Sign In"
-msgstr "Registrarse"
+msgstr "Sign In"
 
 msgid "Mail"
-msgstr "Correo electronico"
+msgstr "Mail"
 
 msgid "Password"
-msgstr "Contraseña"
+msgstr "Password"
 
 msgid "Cats"
-msgstr "Gatos"
+msgstr "Cats"
 
 msgid "Statistics"
-msgstr "Estadisticas"
+msgstr "Statistics"
 
 msgid "This page show statistics from gatoteca."
-msgstr "Esta pàgina muestra las estadisticas de la gatoteca."
+msgstr "This page show statistics from gatoteca."
 
 msgid "Admin"
 msgstr "Admin"
 
 msgid "Log Out"
-msgstr "Cerrar sessión"
+msgstr "Log Out"
 
 msgid "No have account? Sign In here"
-msgstr "¿No tienes cuenta? Registrate aquí"
+msgstr "o have account? Sign In here"
 
 msgid "Have account? Login here"
-msgstr "¿Ya tienes cuenta? Inicia sessión aqui"
+msgstr "Have account? Login here"
 
 msgid "Administration panel"
-msgstr "Panel de administración"
+msgstr "Administration panel"
 
 msgid "Breeds list"
-msgstr "Lista de razas"
+msgstr "Breeds list"
 
 msgid "ID"
 msgstr "ID"
 
 msgid "Actions"
-msgstr "Acciones"
+msgstr "Actions"
 
 msgid "Edit"
-msgstr "Editar"
+msgstr "Edit"
 
 msgid "Delete"
-msgstr "Eliminar"
+msgstr "Delete"
 
 msgid "Add new breed"
-msgstr "Añadir nueva raza"
+msgstr "Add new breed"
 
 msgid "Races by physical characteristics"
-msgstr "Razas por características físicas"
+msgstr "Races by physical characteristics"
 
 msgid "Races by origin"
-msgstr "Razas por origen"
+msgstr "Races by origin"
 
 msgid "URL image"
-msgstr "URL de la imagen"
+msgstr "URL image"
 
 msgid "Update"
-msgstr "Actualizar"
+msgstr "Update"
 
 msgid "Back administration panel"
-msgstr "Volver al panel de administración"
+msgstr "Back administration panel"
 
 msgid "Breed name"
-msgstr "Nombre de la raza"
+msgstr "Breed name"
 
 msgid "Add breed"
-msgstr "Añadir raza"
+msgstr "Add breed"
 
 msgid "Name breed obligatory"
-msgstr "Nombre de la raza obligatorio"
+msgstr "Name breed obligatory"
 
 msgid "Description obligatory"
-msgstr "Descripción obligatoria"
+msgstr "Description obligatory"
 
 msgid "URL image obligatory"
-msgstr "URL de la imagen obligatoria"
+msgstr "URL image obligatory"
