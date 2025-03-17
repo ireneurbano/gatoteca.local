@@ -1,7 +1,7 @@
 Gatoteca
 
+Antes de comenzar, tendrñas que dirigirte a la carpeta /scraping en el terminal y scrapear de uno en uno todos los codigos para poder tener los datos en el proyecto, esto se hace con: scraping origen.py (por ejemplo)
+
 En esta pàgina web podremos ver información sobre diferentes gatos, podremos ver el nombre, la descripción y la imagen como primera visión. El nombre del gato es un acceso directo a la pàgina sobre ese gato, dentro de allí vamos a poder ver aparte de su nombre, su imagen y su descripción los origenes y las características físicas de ellos.
 
-Arriba del todo tenemos una cabecera, tendrás un acceso directo a la página principal, y a las estadísticas, estas
-se muestran de todos los gatos en forma de grafico. A parte, si eres un administrador y no te has registrado 
-anteriormente o no has iniciado sessión lo podrás hacer, auqnue para asegurarnos de que eres un administrador de verdad tendrás que introducir el codigo: "GATOS123". En esta cabecera también tienes la opción de poder cambiar de idiomas, tanto a inglés como a español. También vas a poder cerrar la sessión en caso de que ya hayas terminado de hacer lo que querías y si alguien mas utiliza tu ordenador que no puedan hacer nada.
+Arriba del todo tenemos una cabecera, tendrás un acceso directo a la página principal, y a las estadísticas, estas se muestran de todos los gatos en forma de grafico. A parte, si eres un administrador y no te has registrado  anteriormente o no has iniciado sessión lo podrás hacer, auqnue para asegurarnos de que eres un administrador de verdad tendrás que introducir el codigo: "GATOS123". En esta cabecera también tienes la opción de poder cambiar de idiomas, tanto a inglés como a español. También vas a poder cerrar la sessión en caso de que ya hayas terminado de hacer lo que querías y si alguien mas utiliza tu ordenador que no puedan hacer nada.
